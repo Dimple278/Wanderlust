@@ -86,7 +86,7 @@ app.get(
 //Update route
 app.put(
   "/listings/:id",
-  validatelisting,
+  validateListing,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     await Listing.findByIdAndUpdate(id, { ...req.body.listing });
