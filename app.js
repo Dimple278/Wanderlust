@@ -116,8 +116,8 @@ app.delete(
   })
 );
 
-//Reviews
-// Post route
+//--------------------------------Reviews--------------------------------------------//
+// Post review route
 app.post(
   "/listings/:id/reviews",
   validateReview,
@@ -130,6 +130,18 @@ app.post(
     await newReview.save();
     await listing.save();
     console.log("new review saved");
+    res.redirect(`/listings/${id}`);
+  })
+);
+
+//Delete review route
+app.delete(
+  "/listings/:id/reviews/:reviewId",
+  wrapAsync(async (req, res) => {
+    let { id, reviewId } = req.params;
+
+    await Listing.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
+    await Review.findByIdAndDelete(reviewId);
     res.redirect(`/listings/${id}`);
   })
 );

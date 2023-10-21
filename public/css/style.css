@@ -53,7 +53,7 @@ body {
 }
 
 /* card */
-.card {
+.listing-card {
   border: 0.5px solid grey;
   border: none !important;
   margin-bottom: 1rem;
@@ -117,4 +117,16 @@ body {
 .show-card {
   padding-left: 0 !important;
   padding-right: 0 !important;
+}
+
+.star-rating {
+  font-size: 24px;
+}
+
+.star-filled {
+  color: #fe424d;
+}
+
+.star-empty {
+  color: lightgray;
 }
