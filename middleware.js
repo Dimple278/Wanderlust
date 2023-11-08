@@ -3,6 +3,7 @@ const Review = require("./models/review.js");
 const { listingSchema } = require("./schema.js");
 const ExpressError = require("./utils/ExpressError.js");
 const { reviewSchema } = require("./schema.js");
+const { userSchema } = require("./schema.js");
 
 module.exports.isLoggedIn = (req, res, next) => {
   if (!req.isAuthenticated()) {
@@ -47,6 +48,17 @@ module.exports.validateReview = (req, res, next) => {
   if (error) {
     let errMsg = error.details.map((el) => el.message).join(",");
     throw new ExpressError(400, errMsg);
+  } else {
+    next();
+  }
+};
+
+module.exports.validateUser = (req, res, next) => {
+  let { error } = userSchema.validate(req.body);
+  if (error) {
+    let errMsg = error.details.map((el) => el.message).join(",");
+    req.flash("error", errMsg); // Flash the error message
+    res.redirect("/signup"); // Redirect to the "/signup" page
   } else {
     next();
   }
